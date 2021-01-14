@@ -1,0 +1,11 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: create storage account
+    azure_rm_storageaccount:
+      resource_group: "{{ resourcegroupname }}"
+      name: "{{ storagename }}"
+      account_type: "{{ storagetype }}"
+      kind: "{{ kindstorage}}"
+      access_tier : "{{ access }}"
+      minimum_tls_version : TLS1_2
