@@ -1,0 +1,8 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Create (or update) MariaDB Database
+    azure_rm_mariadbdatabase:
+      resource_group: "{{ resourcegroupname }}"
+      server_name: "{{ dbservername }}"
+      name: "{{ dbname }}"
