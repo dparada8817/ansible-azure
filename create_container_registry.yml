@@ -1,0 +1,10 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Create an azure container registry
+    azure_rm_containerregistry:
+      name: "{{ registryname }}"
+      location: "{{ location }}"
+      resource_group: "{{ resourcegroupname }}"
+      admin_user_enabled: true
+      sku: Standard
