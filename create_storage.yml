@@ -8,4 +8,3 @@
       account_type: "{{ storagetype }}"
       kind: "{{ kindstorage}}"
       access_tier : "{{ access }}"
-      minimum_tls_version : TLS1_2
