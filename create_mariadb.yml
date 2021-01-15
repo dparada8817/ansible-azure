@@ -1,0 +1,16 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Create (or update) MariaDB Server
+    azure_rm_mariadbserver:
+      resource_group: "{{ resourcegroupname }}"
+      name: "{{ dbservername }}"
+      sku:
+        name: "{{ dbtiername }}"
+        tier: "{{ dbtiertype }}"
+      location: "{{ location }}"
+      storage_mb: "{{ dbstorage }}"
+      enforce_ssl: True
+      version: "{{ dbversion }}"
+      admin_username: "{{ dbserveradminusername }}"
+      admin_password: "{{ dbserveradminpassword }}"
