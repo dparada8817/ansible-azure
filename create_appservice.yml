@@ -1,0 +1,51 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Create App Service Plan
+    azure_rm_appserviceplan:
+      resource_group: "{{ resourcegroupname }}"
+      name: "{{ webapp_plan_name }}"
+      location: "{{ location }}"
+      is_linux: "{{ webapp_os_type }}"
+      sku: "{{ webapp_plan_size }}"
+      number_of_workers: "{{ webapp_count_workers }}"
+  - name: Create App Service with Java Runtime
+    azure_rm_webapp:
+        resource_group: "{{ resourcegroupname }}"
+        name: "{{ webapp_name }}"
+        plan:
+          resource_group: "{{ resourcegroupname }}"
+          name: "{{ webapp_plan_name }}"
+          is_linux: "{{ webapp_os_type }}"
+          sku: "{{ webapp_plan_size }}"
+          number_of_workers: "{{ webapp_count_workers }}"
+        app_settings:
+          testkey: "testvalue"
+        frameworks:
+          - name: "{{ webapp_framework }}"
+            version: "{{ webapp_framework_version }}"
+            settings:
+              java_container: "{{ webapp_java_container_type }}"
+              java_container_version: "{{ webapp_java_container_version }}"
+    when: webapp_framework == "java"
+  - name: Create App Service with Other Runtime
+    azure_rm_webapp:
+        resource_group: "{{ resourcegroupname }}"
+        name: "{{ webapp_name }}"
+        plan:
+          resource_group: "{{ resourcegroupname }}"
+          name: "{{ webapp_plan_name }}"
+          is_linux: "{{ webapp_os_type }}"
+          sku: "{{ webapp_plan_size }}"
+          number_of_workers: "{{ webapp_count_workers }}"
+        app_settings:
+          testkey: "testvalue"
+        frameworks:
+          - name: "{{ webapp_framework }}"
+            version: "{{ webapp_framework_version }}"
+    when: webapp_framework != "java"
+  - name: Get web app facts
+    azure_rm_webapp_facts:
+      resource_group: "{{ resourcegroupname }}"
+      name: "{{ webapp_name }}"
+    register: webapp
