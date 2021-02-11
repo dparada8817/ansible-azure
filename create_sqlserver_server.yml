@@ -1,0 +1,18 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Create (or update) SQLServer Server
+    azure_rm_sqlserver:
+      resource_group: "{{ resourcegroupname }}"
+      name: "{{ dbservername }}"
+      location: "{{ location }}"
+      version: "{{ dbversion }}"
+      admin_username: "{{ dbserveradminusername }}"
+      admin_password: "{{ dbserveradminpassword }}"
+  - name: Create (or update) SQLSERVER firewall rule
+    azure_rm_sqlfirewallrule:
+      resource_group: "{{ resourcegroupname }}"
+      server_name: "{{ dbservername }}"
+      name: "{{ dbrulename }}"
+      start_ip_address: "{{ dbrulestartip }}"
+      end_ip_address: "{{ dbruleendip }}"

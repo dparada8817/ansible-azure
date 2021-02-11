@@ -1,0 +1,9 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Delete SQLServer Server
+    azure_rm_sqlserver:
+      resource_group: "{{ resourcegroupname }}"
+      name: "{{ dbservername }}"
+      location: "{{ location }}"
+      state: absent

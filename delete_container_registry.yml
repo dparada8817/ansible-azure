@@ -1,0 +1,8 @@
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Delete a container registry
+      azure_rm_containerregistry:
+        name: "{{ registryname }}"
+        resource_group: "{{ resourcegroupname }}"
+        state: absent

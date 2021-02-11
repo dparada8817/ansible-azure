@@ -1,0 +1,9 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Delete App Service
+    azure_rm_webapp:
+        resource_group: "{{ resourcegroupname }}"
+        name: "{{ webapp_name }}"
+        state: absent
+  

@@ -1,0 +1,9 @@
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: Create (or update) SQLSERVER Database
+    azure_rm_sqldatabase:
+      resource_group: "{{ resourcegroupname }}"
+      server_name: "{{ dbservername }}"
+      name: "{{ dbname }}"
+      location: "{{ location }}"
